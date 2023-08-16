@@ -31,7 +31,7 @@ input BookInput {
 }
 
 type Query {
-    me: User!
+    me: User
 }
 
 type Mutation {
