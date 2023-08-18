@@ -9,7 +9,7 @@ const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
 // const routes = require('./routes');
 
-const PORT = process.env.PORT || 8828;
+const PORT = process.env.PORT || 3001;
 const app = express();
 const server = new ApolloServer({
   typeDefs,
@@ -22,7 +22,7 @@ const startApolloServer = async () => {
   app.use(express.urlencoded({ extended: true }));
   app.use(express.json());
 
-  app.use('graphql', expressMiddleware(server, {
+  app.use('/graphql', expressMiddleware(server, {
     context: authMiddleware
   }));
 

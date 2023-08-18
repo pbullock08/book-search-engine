@@ -5,7 +5,9 @@ const resolvers = {
     Query: {
         me: async (parent, args, context) => {
             if (context.user) {
-                return User.findOne({ _id: context.user._id })
+                const user = await User.findOne({ _id: context.user._id })
+                console.log(context.user)
+                return user
             }
             throw AuthenticationError;
         },
@@ -49,9 +51,9 @@ const resolvers = {
         },
         removeBook: async (parent, { bookId }, context) => {
             if (context.user) {
-                return User.findByIdAndUpdate(
-                    { _id: context.user._id}, 
-                    { $pull: { savedBooks: bookId}},
+                return User.findOneAndUpdate(
+                    { _id: context.user._id },
+                    { $pull: { savedBooks: { bookId } }},
                     { new: true }
                 );
             }
